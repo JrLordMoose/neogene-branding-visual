@@ -6,6 +6,7 @@
 
 **Tagline:** *"Built with precision. Engineered for developers."*
 
+#### [View branding guide](https://jrlordmoose.github.io/neogene-branding-visual/)
 ---
 
 ## 🧬 Core Brand DNA
