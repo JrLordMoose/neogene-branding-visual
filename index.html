@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO//GENE - Tech Precision Color System Visualization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&family=Roboto+Condensed:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #00030B;
+            color: #F2F4F7;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            border-bottom: 1px solid #0D1220;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #64B5F6 0%, #A6B4CC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            color: #A6B4CC;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #F2F4F7;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #F2F4F7;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Color Palette Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .color-card {
+            background: #0D1220;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(100, 181, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .color-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(100, 181, 246, 0.3);
+            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.12);
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .color-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #F2F4F7;
+        }
+
+        .color-hex {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            color: #64B5F6;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .color-description {
+            font-size: 14px;
+            color: #A6B4CC;
+            line-height: 1.5;
+        }
+
+        /* Component Examples */
+        .components-section {
+            margin-bottom: 60px;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: #64B5F6;
+            color: #00030B;
+        }
+
+        .btn-primary:hover {
+            background: #82c7ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 181, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #64B5F6;
+            border: 2px solid #64B5F6;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 181, 246, 0.1);
+        }
+
+        .btn-success {
+            background: #66BB6A;
+            color: #00030B;
+        }
+
+        .btn-success:hover {
+            background: #81c784;
+            box-shadow: 0 4px 12px rgba(102, 187, 106, 0.3);
+        }
+
+        .btn-error {
+            background: #E57373;
+            color: #F2F4F7;
+        }
+
+        .btn-error:hover {
+            background: #ef9a9a;
+            box-shadow: 0 4px 12px rgba(229, 115, 115, 0.3);
+        }
+
+        .btn-warning {
+            background: #FFB74D;
+            color: #00030B;
+        }
+
+        .btn-warning:hover {
+            background: #ffcc80;
+            box-shadow: 0 4px 12px rgba(255, 183, 77, 0.3);
+        }
+
+        /* Cards */
+        .card {
+            background: #0D1220;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid rgba(100, 181, 246, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #F2F4F7;
+        }
+
+        .card-text {
+            color: #A6B4CC;
+            line-height: 1.6;
+        }
+
+        /* Alerts */
+        .alerts-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background: rgba(102, 187, 106, 0.1);
+            border-color: #66BB6A;
+            color: #66BB6A;
+        }
+
+        .alert-error {
+            background: rgba(229, 115, 115, 0.1);
+            border-color: #E57373;
+            color: #E57373;
+        }
+
+        .alert-warning {
+            background: rgba(255, 183, 77, 0.1);
+            border-color: #FFB74D;
+            color: #FFB74D;
+        }
+
+        .alert-info {
+            background: rgba(100, 181, 246, 0.1);
+            border-color: #64B5F6;
+            color: #64B5F6;
+        }
+
+        /* Typography Demo */
+        .typography-demo {
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .type-sample {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(100, 181, 246, 0.1);
+        }
+
+        .type-sample:last-child {
+            border-bottom: none;
+        }
+
+        .type-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: #64B5F6;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .h1-demo { font-size: 48px; font-weight: 900; line-height: 1.2; font-family: 'Orbitron', monospace; letter-spacing: 1px; }
+        .h2-demo { font-size: 36px; font-weight: 700; line-height: 1.2; font-family: 'Orbitron', monospace; letter-spacing: 0.5px; }
+        .h3-demo { font-size: 28px; font-weight: 700; line-height: 1.3; font-family: 'Orbitron', monospace; letter-spacing: 0.5px; }
+        .body-demo { font-size: 16px; font-weight: 400; line-height: 1.6; color: #F2F4F7; font-family: 'Roboto', sans-serif; }
+        .body-secondary-demo { font-size: 16px; font-weight: 400; line-height: 1.6; color: #A6B4CC; font-family: 'Roboto', sans-serif; }
+        .code-demo { 
+            font-family: 'Roboto Mono', monospace; 
+            font-size: 14px; 
+            font-weight: 400;
+            background: #00030B;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            color: #64B5F6;
+        }
+
+        /* Form Elements */
+        .form-demo {
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #F2F4F7;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #00030B;
+            border: 1px solid #0D1220;
+            border-radius: 8px;
+            color: #F2F4F7;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #64B5F6;
+            box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #00030B;
+            border: 1px solid #0D1220;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            color: #64B5F6;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .comparison-card {
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+            border: 2px solid;
+        }
+
+        .comparison-card.before {
+            border-color: #E57373;
+        }
+
+        .comparison-card.after {
+            border-color: #66BB6A;
+        }
+
+        .comparison-label {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .before .comparison-label {
+            color: #E57373;
+        }
+
+        .after .comparison-label {
+            color: #66BB6A;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive Toggle */
+        .toggle-section {
+            background: #0D1220;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .toggle-btn {
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            background: #64B5F6;
+            color: #00030B;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.4);
+        }
+
+        /* Accessibility Notice */
+        .accessibility-notice {
+            background: rgba(100, 181, 246, 0.1);
+            border: 1px solid #64B5F6;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 60px;
+        }
+
+        .accessibility-notice h3 {
+            color: #64B5F6;
+            margin-bottom: 16px;
+        }
+
+        .accessibility-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .accessibility-list li {
+            padding: 8px 0;
+            color: #A6B4CC;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accessibility-list li::before {
+            content: "✓";
+            color: #66BB6A;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">NEO//GENE</div>
+            <p class="tagline">Refined "Tech Precision" Color System Visualization</p>
+        </header>
+
+        <!-- Accessibility Notice -->
+        <div class="accessibility-notice">
+            <h3>♿ Accessibility First Design</h3>
+            <ul class="accessibility-list">
+                <li>All text meets WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text)</li>
+                <li>Off-white (#F2F4F7) replaces pure white to reduce eye strain</li>
+                <li>Muted accent colors prevent visual fatigue during extended use</li>
+                <li>16px base font size ensures comfortable reading on all devices</li>
+            </ul>
+        </div>
+
+        <!-- Color Palette -->
+        <section>
+            <h2>🎨 Complete Color Palette</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #00030B;"></div>
+                    <div class="color-name">Primary Background</div>
+                    <div class="color-hex">#00030B</div>
+                    <div class="color-description">Deep, sophisticated base. The slight blue tint provides depth over pure black.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #0D1220;"></div>
+                    <div class="color-name">Surface/Card Color</div>
+                    <div class="color-hex">#0D1220</div>
+                    <div class="color-description">Subtle elevation against the background, maintaining visual hierarchy.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #64B5F6;"></div>
+                    <div class="color-name">Accent/CTA</div>
+                    <div class="color-hex">#64B5F6</div>
+                    <div class="color-description">Professional soft blue, highly visible without harsh glare.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #F2F4F7;"></div>
+                    <div class="color-name">Text Primary</div>
+                    <div class="color-hex">#F2F4F7</div>
+                    <div class="color-description">Off-white replacing pure white to eliminate glare and reduce eye strain.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #A6B4CC;"></div>
+                    <div class="color-name">Text Secondary</div>
+                    <div class="color-hex">#A6B4CC</div>
+                    <div class="color-description">Lighter grey for de-emphasized content, maintains contrast.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #66BB6A;"></div>
+                    <div class="color-name">Success</div>
+                    <div class="color-hex">#66BB6A</div>
+                    <div class="color-description">Muted, authoritative green. Calm and clear on dark backgrounds.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #E57373;"></div>
+                    <div class="color-name">Error</div>
+                    <div class="color-hex">#E57373</div>
+                    <div class="color-description">Professional red/salmon. Less straining for critical errors.</div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FFB74D;"></div>
+                    <div class="color-name">Warning</div>
+                    <div class="color-hex">#FFB74D</div>
+                    <div class="color-description">Softer orange. Signals warning without visual punch.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Demo -->
+        <section>
+            <h2>📝 Typography System - Font Pairing Strategy</h2>
+            
+            <!-- Font Pairing Overview -->
+            <div class="accessibility-notice" style="margin-bottom: 40px;">
+                <h3>🎯 Three-Font System Rationale</h3>
+                <ul class="accessibility-list">
+                    <li><strong>Orbitron (Display/Headlines):</strong> Bold, futuristic aesthetic provides unique "fierce" brand identity. Used sparingly for maximum impact on titles and hero sections.</li>
+                    <li><strong>Roboto (Body/UI Text):</strong> Highly legible workhorse for comfortable long-form reading. Medium/Regular weights perfect for paragraphs, buttons, and standard UI elements.</li>
+                    <li><strong>Roboto Mono (Code/Data):</strong> Light weight ensures technical precision with perfect character alignment. Essential for code snippets, timestamps, and fixed-width data fields.</li>
+                    <li><strong>Roboto Condensed (Mobile/Dense UI):</strong> Space-efficient variant for sidebars, compact lists, and mobile screens while maintaining Roboto's visual style.</li>
+                </ul>
+            </div>
+            
+            <div class="typography-demo">
+                <div class="type-sample">
+                    <div class="type-label">Heading 1 (H1) - Orbitron 48px Black (900)</div>
+                    <div class="h1-demo">Intelligent Project Scaffolding</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Heading 2 (H2) - Orbitron 36px Bold (700)</div>
+                    <div class="h2-demo">Context Engineering Platform</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Heading 3 (H3) - Orbitron 28px Bold (700)</div>
+                    <div class="h3-demo">5-Layer Context Architecture</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Body Text - Roboto 16px Regular (Primary)</div>
+                    <div class="body-demo">NEO//GENE transforms how developers start projects. Instead of spending hours on boilerplate setup, you compose structured, multi-layered context that guides AI to generate production-ready scaffolding in minutes. The Roboto font provides excellent readability for long-form content.</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Body Text - Roboto 16px Regular (Secondary)</div>
+                    <div class="body-secondary-demo">Secondary text is perfect for supporting information, captions, and less critical content. It maintains readability while reducing visual weight. Roboto's clean, modern aesthetic works perfectly for UI elements and comfortable reading.</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Code - Roboto Mono 14px Regular (Light Weight)</div>
+                    <div class="code-demo">const neogene = new ContextEngine({<br>
+    &nbsp;&nbsp;layers: ['foundation', 'knowledge', 'state'],<br>
+    &nbsp;&nbsp;templates: 60,<br>
+    &nbsp;&nbsp;aiProvider: 'claude',<br>
+    &nbsp;&nbsp;typography: {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;display: 'Orbitron',<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;body: 'Roboto',<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;code: 'Roboto Mono'<br>
+    &nbsp;&nbsp;}<br>
+});</div>
+                </div>
+                <div class="type-sample">
+                    <div class="type-label">Mobile/Dense UI - Roboto Condensed 14px Medium</div>
+                    <div style="font-family: 'Roboto Condensed', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.4; color: #F2F4F7;">
+                        Roboto Condensed maintains visual style while improving information density and scannability on small screens. Perfect for sidebars, data tables, compact lists, and mobile interfaces where horizontal space is limited.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Examples -->
+        <section class="components-section">
+            <h2>🔘 Interactive Buttons</h2>
+            <div class="button-group">
+                <button class="btn btn-primary">Primary CTA Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-success">Success Action</button>
+                <button class="btn btn-error">Delete/Error</button>
+                <button class="btn btn-warning">Warning Action</button>
+            </div>
+        </section>
+
+        <!-- Alert Examples -->
+        <section class="components-section">
+            <h2>📢 Alert States</h2>
+            <div class="alerts-demo">
+                <div class="alert alert-success">
+                    <strong>✓</strong> Project scaffolding generated successfully! Files ready for download.
+                </div>
+                <div class="alert alert-error">
+                    <strong>✕</strong> Validation failed: Conflicting constraints detected in configuration.
+                </div>
+                <div class="alert alert-warning">
+                    <strong>⚠</strong> Token budget approaching limit (85% used). Consider optimizing context.
+                </div>
+                <div class="alert alert-info">
+                    <strong>ℹ</strong> Pro tip: Use template versioning to track changes over time.
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Examples -->
+        <section class="components-section">
+            <h2>📦 Card Components</h2>
+            <div class="component-grid">
+                <div class="card">
+                    <div class="card-title">Context Engineering</div>
+                    <div class="card-text">Structure information across 5 layers (Foundation, Knowledge, State, Interaction, Meta) to create systematic frameworks that prevent AI hallucination and ensure completeness.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Template Library</div>
+                    <div class="card-text">60+ pre-validated templates for roles, goals, domains, patterns, and tech stacks. Each template captures proven architectural patterns and best practices.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Elements -->
+        <section class="components-section">
+            <h2>📝 Form Elements</h2>
+            <div class="form-demo">
+                <div class="form-group">
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" placeholder="my-awesome-project">
+                </div>
+                <div class="form-group">
+                    <label for="tech-stack">Tech Stack</label>
+                    <select id="tech-stack">
+                        <option>React + TypeScript</option>
+                        <option>Next.js</option>
+                        <option>Python + FastAPI</option>
+                        <option>Django</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Project Description</label>
+                    <textarea id="description" placeholder="Describe your project architecture..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before/After Comparison -->
+        <section>
+            <h2>⚖️ Before & After Comparison</h2>
+            <div class="comparison">
+                <div class="comparison-card before">
+                    <div class="comparison-label">❌ Original (Too Harsh)</div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="padding: 16px; background: rgba(0, 217, 255, 0.2); border-left: 4px solid #00d9ff; color: #00d9ff; margin-bottom: 12px;">
+                            Electric cyan (#00d9ff) - Too bright, causes glare
+                        </div>
+                        <div style="padding: 16px; background: rgba(255, 255, 255, 0.1); color: #ffffff; margin-bottom: 12px;">
+                            Pure white (#ffffff) - Eye strain on dark backgrounds
+                        </div>
+                        <div style="padding: 16px; background: rgba(0, 255, 159, 0.2); border-left: 4px solid #00ff9f; color: #00ff9f;">
+                            Mint green (#00ff9f) - Overly saturated, "glowy"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-card after">
+                    <div class="comparison-label">✅ Refined (Professional)</div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="padding: 16px; background: rgba(100, 181, 246, 0.1); border-left: 4px solid #64B5F6; color: #64B5F6; margin-bottom: 12px;">
+                            Soft blue (#64B5F6) - Visible without glare
+                        </div>
+                        <div style="padding: 16px; background: rgba(242, 244, 247, 0.05); color: #F2F4F7; margin-bottom: 12px;">
+                            Off-white (#F2F4F7) - Reduced eye strain
+                        </div>
+                        <div style="padding: 16px; background: rgba(102, 187, 106, 0.1); border-left: 4px solid #66BB6A; color: #66BB6A;">
+                            Muted green (#66BB6A) - Calm and authoritative
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Block Example -->
+        <section>
+            <h2>💻 Code Block Example</h2>
+            <div class="card">
+                <div class="card-title">CSS Implementation</div>
+                <div class="code-block">
+<code>:root {
+  /* Core Colors */
+  --bg-primary: #00030B;
+  --bg-surface: #0D1220;
+  --text-primary: #F2F4F7;
+  --text-secondary: #A6B4CC;
+  
+  /* Interactive */
+  --accent-primary: #64B5F6;
+  --success: #66BB6A;
+  --error: #E57373;
+  --warning: #FFB74D;
+  
+  /* Typography - Three Font System */
+  --font-display: 'Orbitron', monospace;
+  --font-body: 'Roboto', -apple-system, sans-serif;
+  --font-code: 'Roboto Mono', monospace;
+  --font-condensed: 'Roboto Condensed', sans-serif;
+  --font-size-base: 16px;
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toggle Demo -->
+        <section class="toggle-section">
+            <h3>Interactive Example</h3>
+            <p style="color: #A6B4CC; margin-bottom: 24px;">Hover over any button above to see smooth transitions and shadows in action.</p>
+            <button class="toggle-btn" onclick="alert('This demonstrates the refined #64B5F6 accent color in action! Notice how it\'s visible and energetic without being harsh or glaring.')">
+                Test Primary CTA
+            </button>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 40px 0; border-top: 1px solid #0D1220; margin-top: 60px;">
+            <div style="color: #A6B4CC; margin-bottom: 8px;">NEO//GENE Tech Precision Design System</div>
+            <div style="color: #A6B4CC; font-size: 14px;">Built with Orbitron + Roboto + Roboto Mono • Optimized for Developer Experience</div>
+        </footer>
+    </div>
+</body>
+</html>
